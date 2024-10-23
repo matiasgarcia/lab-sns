@@ -23,8 +23,23 @@ async function publishMessage(message) {
   }
 }
 
-publishMessage({
-  title: "Test Message",
-  content: "Hello from LocalStack!",
-  timestamp: new Date().toISOString()
-});
+async function sleep(time) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), time)
+  })
+}
+
+async function run() {
+  const dateString = new Date().toISOString();
+  await publishMessage({
+    title: "Test Message",
+    content: `Hello! It's ${dateString}`,
+    timestamp: dateString
+  });
+
+  await sleep(500);
+
+  await run();
+}
+
+run();
