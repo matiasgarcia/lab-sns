@@ -1,0 +1,24 @@
+{
+  "name": "aws-local-setup",
+  "version": "1.0.0",
+  "description": "Local AWS setup with LocalStack, SNS and SQS",
+  "scripts": {
+    "preinstall": "cd publisher && npm install && cd ../consumer && npm install",
+    "start": "npm run start:infra && npm run start:apps",
+    "start:infra": "npm run docker:up && sleep 10 && npm run terraform:init && npm run terraform:apply",
+    "start:apps": "npm run start:consumer & npm run start:publisher",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down -v",
+    "docker:logs": "docker-compose logs -f",
+    "terraform:init": "docker-compose run --rm terraform init",
+    "terraform:apply": "docker-compose run --rm terraform apply --auto-approve",
+    "terraform:destroy": "docker-compose run --rm terraform destroy --auto-approve",
+    "start:publisher": "cd publisher && npm start",
+    "start:consumer": "cd consumer && npm start",
+    "stop": "npm run docker:down",
+    "clean": "npm run stop && rm -rf publisher/node_modules consumer/node_modules node_modules"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

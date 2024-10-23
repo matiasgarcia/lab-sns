@@ -1,0 +1,13 @@
+{
+  "name": "sqs-consumer",
+  "version": "1.0.0",
+  "description": "SQS consumer for LocalStack testing",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.525.0"
+  }
+}
